@@ -82,6 +82,8 @@ public class CheckpointManager : MonoBehaviour
     {
         PopulateList();
 
+        isThereCheckpoints = (AllCheckpointParents.Count >= 0 ? true : false);
+
         if (currentCheckpoint > TrueCheckpointCount) currentCheckpoint = TrueCheckpointCount; // could be simplified
 
         if (currentCheckpoint >= 0) currentCheckpointResetPoint = AllCheckpointParents[currentCheckpoint].transform.Find("Respawn Point").position;
