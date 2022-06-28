@@ -12,6 +12,9 @@ public class MusicManager : MonoBehaviour
     public Scene MasterScene;
     private bool isThereMasterScene = false;
     GameManager GM;
+    private AudioSource musicSource;
+    private int x = 0;
+    private bool isToStop = false;
 
     void Start()
     {
@@ -52,15 +55,17 @@ public class MusicManager : MonoBehaviour
         }
         music.RemoveAt(0); // this removes the parent from the list
 
-        //PopulateList();
+        PopulateList();
 
         music.Sort(SortByName);
 
         TrueCheckpointCount = music.Count - 1;
 
+        x = 0;
     }
 
-    private static int SortByName(GameObject o1, GameObject o2) // simple string sorting by comparing
+    // simple string sorting by comparing
+    private static int SortByName(GameObject o1, GameObject o2)
     {
         return o1.name.CompareTo(o2.name);
     }
@@ -70,9 +75,26 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        AudioSource currentMusic = music[x].GetComponent<AudioSource>();
+        if ((!currentMusic.isPlaying) && (!isToStop))
+        {
+            currentMusic.Play();
+            isToStop = true;
+        }
+        else if (!currentMusic.isPlaying)
+        {
+            x++;
+            isToStop = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            currentMusic.Stop();
+            x++;
+            isToStop = false;
+        }
 
+        if (x >= music.Count) x = 0;
+    }
 
     void PopulateList()
     {
@@ -82,13 +104,12 @@ public class MusicManager : MonoBehaviour
         {
             music.Clear();
 
-            foreach (GameObject PossibleCheckpoint in scene.GetRootGameObjects())
+            Transform[] allChildren = GetComponentsInChildren<Transform>();
+            foreach (Transform child in allChildren)
             {
-                if (PossibleCheckpoint.transform.tag == "Checkpoint")
-                {
-                    music.Add(PossibleCheckpoint);
-                }
+                music.Add(child.gameObject);
             }
+            music.RemoveAt(0); // this removes the parent from the list
 
             print(music.Count);
 
