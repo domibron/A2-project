@@ -17,26 +17,28 @@ public class PauseMenuScript : MonoBehaviour
 
     private void Start()
     {
-        int countLoaded = SceneManager.sceneCount;
-        Scene[] loadedScenes = new Scene[countLoaded];
-
-        for (int i = 0; i < countLoaded; i++)
+        if (SceneManager.sceneCount > 1)
         {
-            loadedScenes[i] = SceneManager.GetSceneAt(i);
-        }
+            int countLoaded = SceneManager.sceneCount;
+            Scene[] loadedScenes = new Scene[countLoaded];
 
-        foreach (Scene x in loadedScenes)
-        {
-            print(x.name);
-            if (x.name == "Master Scene") MasterScene = x;
-        }
+            for (int i = 0; i < countLoaded; i++)
+            {
+                loadedScenes[i] = SceneManager.GetSceneAt(i);
+            }
 
-        foreach (GameObject x in MasterScene.GetRootGameObjects())
-        {
-            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
-        }
+            foreach (Scene x in loadedScenes)
+            {
+                print(x.name);
+                if (x.name == "Master Scene") MasterScene = x;
+            }
 
-        // save system load
+            foreach (GameObject x in MasterScene.GetRootGameObjects())
+            {
+                if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+            }
+        }
+        // insert save system load here to access the varibles
 
         Time.timeScale = 1f;
 

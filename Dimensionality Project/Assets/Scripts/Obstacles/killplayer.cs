@@ -39,16 +39,18 @@ public class killplayer : MonoBehaviour
             }
 
             scene = SceneManager.GetSceneAt(1);
-        }
-        foreach (GameObject PossibleItem in scene.GetRootGameObjects())
-        {
-            if (PossibleItem.transform.name == "Importable player asset")
+
+            foreach (GameObject PossibleItem in scene.GetRootGameObjects())
             {
-                root = PossibleItem.gameObject;
+                if (PossibleItem.transform.name == "Importable player asset")
+                {
+                    root = PossibleItem.gameObject;
+                }
             }
+            
+            CM = root.transform.Find("Player").GetComponent<CheckpointManager>();
         }
 
-        CM = root.transform.Find("Player").GetComponent<CheckpointManager>();
 
         //print(CM.name);
     }
