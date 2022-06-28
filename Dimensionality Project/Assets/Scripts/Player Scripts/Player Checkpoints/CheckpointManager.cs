@@ -40,6 +40,7 @@ public class CheckpointManager : MonoBehaviour
         {
             if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
         }
+
         Transform root = transform.root;
 
         timerController = root.GetComponentInChildren<TimerController>();
@@ -80,9 +81,11 @@ public class CheckpointManager : MonoBehaviour
 
     void Update()
     {
-        PopulateList();
+        //PopulateList();
 
         isThereCheckpoints = (AllCheckpointParents.Count >= 0 ? true : false);
+        
+        if (!isThereCheckpoints || GM == null) return;
 
         if (currentCheckpoint > TrueCheckpointCount) currentCheckpoint = TrueCheckpointCount; // could be simplified
 

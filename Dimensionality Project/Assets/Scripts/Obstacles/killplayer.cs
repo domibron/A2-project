@@ -17,26 +17,29 @@ public class killplayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int countLoaded = SceneManager.sceneCount;
-        Scene[] loadedScenes = new Scene[countLoaded];
-
-        for (int i = 0; i < countLoaded; i++)
+        if (SceneManager.sceneCount > 1)
         {
-            loadedScenes[i] = SceneManager.GetSceneAt(i);
-        }
+            int countLoaded = SceneManager.sceneCount;
+            Scene[] loadedScenes = new Scene[countLoaded];
 
-        foreach (Scene x in loadedScenes)
-        {
-            print(x.name);
-            if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
-        }
+            for (int i = 0; i < countLoaded; i++)
+            {
+                loadedScenes[i] = SceneManager.GetSceneAt(i);
+            }
 
-        foreach (GameObject x in MasterScene.GetRootGameObjects())
-        {
-            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
-        }
+            foreach (Scene x in loadedScenes)
+            {
+                print(x.name);
+                if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
+            }
 
-        scene = SceneManager.GetSceneAt(1);
+            foreach (GameObject x in MasterScene.GetRootGameObjects())
+            {
+                if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+            }
+
+            scene = SceneManager.GetSceneAt(1);
+        }
         foreach (GameObject PossibleItem in scene.GetRootGameObjects())
         {
             if (PossibleItem.transform.name == "Importable player asset")

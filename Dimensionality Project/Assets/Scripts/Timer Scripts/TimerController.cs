@@ -37,7 +37,7 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
-        if (Save_Manager.instance.hasLoaded)
+        if (Save_Manager.instance.hasLoaded || SceneManager.sceneCount > 1)
         {
             if (SceneManager.GetSceneAt(1).buildIndex == 2)
             {

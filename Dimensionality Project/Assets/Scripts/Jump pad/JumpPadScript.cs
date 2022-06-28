@@ -20,7 +20,6 @@ public class JumpPadScript : MonoBehaviour
         {
             Boing_Animator = GetComponent<Animator>();
             rb = other.GetComponentInParent<Rigidbody>();
-            print("check");
             rb.AddForce(transform.up * power, ForceMode.Impulse);
             Boing_Animator.SetTrigger("Boing");
             cooldowntime = time + coolDown;
