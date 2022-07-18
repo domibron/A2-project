@@ -18,6 +18,7 @@ public class getCurrentMusicState : MonoBehaviour
         else
         {
             isMusicMutedhold = false;
+            canIOperate = false;
         }
     }
 
@@ -32,6 +33,7 @@ public class getCurrentMusicState : MonoBehaviour
 
             if(isMusicMutedhold) Music.volume = 0;
             else Music.volume = 1; // change 1 to current volume
+
         }
     }
 }

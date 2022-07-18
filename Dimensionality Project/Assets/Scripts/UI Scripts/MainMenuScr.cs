@@ -46,7 +46,6 @@ public class MainMenuScr : MonoBehaviour
 
         foreach (Scene x in loadedScenes)
         {
-            print(x.name);
             if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
         }
 
