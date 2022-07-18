@@ -15,6 +15,7 @@ public class MainMenuScr : MonoBehaviour
 
     public Dropdown FullScreenDropdown;
     public TMP_Text LevelVBestTimeText;
+    public Toggle MuteMusic;
     FullScreenMode settingVid;
 
     private string LevelVbestTime;
@@ -166,19 +167,23 @@ public class MainMenuScr : MonoBehaviour
 
         Save_Manager.instance.saveData.levelVNewTime = true;
 
+        Save_Manager.instance.saveData.isMusicMuted = false;
+
         Save_Manager.instance.Save();
 
         LoadSettings();
     }
 
 
-    //save values after the button is clicked
+    //save values after the apply button is clicked
     public void SaveSettings()
     {
         //save the values that are set
         //Save_Manager.instance.saveData.masterVolumeSave = masterVolume;
 
         Save_Manager.instance.saveData.fullscreenMode = FullScreenDropdown.value;
+
+        Save_Manager.instance.saveData.isMusicMuted = MuteMusic.isOn;
 
         //Save_Manager.instance.saveData.ScreenResolution = VideoResolution.value;
 

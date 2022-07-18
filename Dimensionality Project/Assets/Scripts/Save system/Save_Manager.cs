@@ -65,6 +65,8 @@ public class Save_Manager : MonoBehaviour
 
             saveData.levelVNewTime = true;
 
+            saveData.isMusicMuted = false;
+
             //saveData.ScreenResolution = 3;
 
             //saveData.HighScore = 0;
@@ -101,8 +103,7 @@ public class SaveData
 {
     public string saveName = "GAMEDATA";
 
-
-    //public float masterVolumeSave; >examples<
+    //  public float masterVolumeSave; << example
 
     public int fullscreenMode;
 
@@ -118,13 +119,13 @@ public class SaveData
 
     public bool levelVNewTime;
 
-    //public int ScreenResolution;
+    public bool isMusicMuted;
 
-    //public int HighScore;
+    // posible values we can use
+
+    //public int ScreenResolution;
 
     //public float FOV;
 
-    //public float MainMouseSensitivity;
-
-    //public float Rounds;
+    //public float MouseSensitivity;
 }

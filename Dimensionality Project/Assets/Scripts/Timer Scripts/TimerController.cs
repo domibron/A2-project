@@ -37,7 +37,7 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
-        if (Save_Manager.instance.hasLoaded)
+        if ((Save_Manager.instance.hasLoaded) && (SceneManager.sceneCount > 1))
         {
             if (SceneManager.GetSceneAt(1).buildIndex == 2)
             {
@@ -52,7 +52,7 @@ public class TimerController : MonoBehaviour
                 isNewTime = Save_Manager.instance.saveData.levelVNewTime;
             }
         }
-        else
+        else if (SceneManager.sceneCount > 1)
         {
             if (SceneManager.GetSceneAt(1).buildIndex == 2)
             {
@@ -67,6 +67,12 @@ public class TimerController : MonoBehaviour
                 Save_Manager.instance.saveData.levelVNewTime = true;
             }
         }
+        else
+        {
+            print("Error: not on Master Scene");
+            // insert magic function or another if else which is not smart
+        }
+
     }
 
     void Update()

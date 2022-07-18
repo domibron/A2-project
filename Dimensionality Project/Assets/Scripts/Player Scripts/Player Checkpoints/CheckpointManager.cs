@@ -22,31 +22,36 @@ public class CheckpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int countLoaded = SceneManager.sceneCount;
-        Scene[] loadedScenes = new Scene[countLoaded];
-
-        for (int i = 0; i < countLoaded; i++)
+        if (SceneManager.sceneCount > 1)
         {
-            loadedScenes[i] = SceneManager.GetSceneAt(i);
+            int countLoaded = SceneManager.sceneCount;
+            Scene[] loadedScenes = new Scene[countLoaded];
+
+            for (int i = 0; i < countLoaded; i++)
+            {
+                loadedScenes[i] = SceneManager.GetSceneAt(i);
+            }
+
+            foreach (Scene x in loadedScenes)
+            {
+                print(x.name);
+                if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
+            }
+
+            foreach (GameObject x in MasterScene.GetRootGameObjects())
+            {
+                if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+            }
         }
 
-        foreach (Scene x in loadedScenes)
-        {
-            print(x.name);
-            if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
-        }
-
-        foreach (GameObject x in MasterScene.GetRootGameObjects())
-        {
-            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
-        }
         Transform root = transform.root;
 
         timerController = root.GetComponentInChildren<TimerController>();
 
         currentCheckpoint = -1;
 
-        scene = SceneManager.GetSceneAt(1);
+        if (SceneManager.sceneCount > 1) scene = SceneManager.GetSceneAt(1);
+        else scene = SceneManager.GetSceneAt(0);
 
         AllCheckpointParents.Clear();
 
@@ -80,9 +85,11 @@ public class CheckpointManager : MonoBehaviour
 
     void Update()
     {
-        PopulateList();
+        //PopulateList();
 
         isThereCheckpoints = (AllCheckpointParents.Count >= 0 ? true : false);
+        
+        if (!isThereCheckpoints || GM == null) return;
 
         if (currentCheckpoint > TrueCheckpointCount) currentCheckpoint = TrueCheckpointCount; // could be simplified
 
@@ -107,9 +114,11 @@ public class CheckpointManager : MonoBehaviour
         // this check if the script can restart
         if (!timerController.canRestart) return;
 
-        if (Input.GetKey(KeyCode.LeftShift)) GM.Reload();
+        if (Input.GetKey(KeyCode.LeftShift) && GM != null) GM.Reload();
+        // insert else
 
-        if (currentCheckpoint == -1) GM.Reload();
+        if ((currentCheckpoint == -1) && (GM != null)) GM.Reload();
+        // insert else if current == -1 && GM == null
         else transform.position = currentCheckpointResetPoint;
     }
 
@@ -131,7 +140,7 @@ public class CheckpointManager : MonoBehaviour
                 }
             }
 
-            print(AllCheckpointParents.Count);
+            //print(AllCheckpointParents.Count);
 
             for (int i = 0; i >= AllCheckpointParents.Count; i++)
             {

@@ -15,7 +15,9 @@ public class PoweredDoorController : MonoBehaviour
 
     public float speed;
 
+#pragma warning disable IDE0052 // Remove unread private members
     private DoorState doorState = DoorState.Closed;
+#pragma warning restore IDE0052 // Remove unread private members
 
     private bool toOpen = false;
     private bool toClose = false;

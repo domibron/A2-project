@@ -22119,6 +22119,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4220740433416623465, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.8200073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220740433416623465, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.0199966
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220740433416623465, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95619386
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220740433416623465, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.29273427
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220740433416623465, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -34.043
+      objectReference: {fileID: 0}
     - target: {fileID: 5378953789881230794, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_Name
       value: Importable player asset (1)
