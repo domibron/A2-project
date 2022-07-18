@@ -30,7 +30,7 @@ public class MainMenuScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.sceneCount <= 1)
+        if (SceneManager.sceneCount <= 1) // forces the master scene to load if only this scene exsists
         {
             print("eh? loading correct scene!");
             SceneManager.LoadScene(0, LoadSceneMode.Single);
@@ -66,6 +66,8 @@ public class MainMenuScr : MonoBehaviour
 
             LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
 
+            MuteMusic.isOn = Save_Manager.instance.saveData.isMusicMuted;
+
             shutdown = false;
         }
         else
@@ -74,7 +76,9 @@ public class MainMenuScr : MonoBehaviour
 
             Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
 
-            shutdown = true;
+            Save_Manager.instance.saveData.isMusicMuted = false;
+
+            shutdown = true; //  why is this nessary??
         }
 
         mainMenu.SetActive(true);
@@ -92,7 +96,7 @@ public class MainMenuScr : MonoBehaviour
         FullScreen();
         Resolution();
 
-        if (!shutdown)
+        if (!shutdown) // why is this here?
         {
             LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
             LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
