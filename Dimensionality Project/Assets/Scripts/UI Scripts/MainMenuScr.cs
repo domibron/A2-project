@@ -30,6 +30,12 @@ public class MainMenuScr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.sceneCount <= 1)
+        {
+            print("eh? loading correct scene!");
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
+
         int countLoaded = SceneManager.sceneCount;
         Scene[] loadedScenes = new Scene[countLoaded];
 
