@@ -17,6 +17,8 @@ public class MusicManager : MonoBehaviour
     private AudioSource currentMusic;
     private int x = 0;
     private bool isToStop = false;
+    private bool isMutedRunOnce = false;
+    private bool canIOperate;
 
     void Start()
     {
@@ -50,12 +52,14 @@ public class MusicManager : MonoBehaviour
         if (Save_Manager.instance.hasLoaded)
         {
             isMuted = Save_Manager.instance.saveData.isMusicMuted;
+            canIOperate = true;
         }
         else
         {
             isMuted = false;
             Save_Manager.instance.saveData.isMusicMuted = false;
             Save_Manager.instance.Save();
+            canIOperate = false;
         }
 
         currentMusic = music[x].GetComponent<AudioSource>();
@@ -65,10 +69,12 @@ public class MusicManager : MonoBehaviour
         music.Clear();
 
         Transform[] allChildren = GetComponentsInChildren<Transform>();
+        
         foreach (Transform child in allChildren)
         {
             music.Add(child.gameObject);
         }
+
         music.RemoveAt(0); // this removes the parent from the list
 
         PopulateList();
@@ -91,9 +97,15 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isMuted) isMutedRunOnce = false;
+
         if (isMuted)
         {
-            currentMusic.Stop();
+            if (!isMutedRunOnce)
+            {
+                currentMusic.Stop();
+                isMutedRunOnce = true;
+            }
             // This pervents the other if statement
             // from functioning until free like a
             // return.
