@@ -62,7 +62,7 @@ public class MusicManager : MonoBehaviour
             canIOperate = false;
         }
 
-        currentMusic = music[x].GetComponent<AudioSource>();
+        // any thing relating to music put under
 
         // music gathering stuff
 
@@ -84,6 +84,8 @@ public class MusicManager : MonoBehaviour
         TrueCheckpointCount = music.Count - 1;
 
         x = 0;
+
+        currentMusic = music[x].GetComponent<AudioSource>();
     }
 
     // simple string sorting by comparing
@@ -126,8 +128,6 @@ public class MusicManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.M)) MuteMusic();
-
-        if (x >= music.Count) x = 0;
     }
 
     public void MuteMusic()
@@ -142,6 +142,8 @@ public class MusicManager : MonoBehaviour
         currentMusic.Stop();
         x++;
         isToStop = false;
+        if (x >= music.Count) x = 0;
+        currentMusic = music[x].GetComponent<AudioSource>();
     }
 
     private void PopulateList()
