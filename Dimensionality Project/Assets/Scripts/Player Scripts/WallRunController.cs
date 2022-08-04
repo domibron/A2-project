@@ -5,7 +5,8 @@ public class WallRunController : MonoBehaviour
     public bool isWallRunning { get; private set; } = false;
     public float tilt { get; private set; }
     private bool isJumping = false;
-
+    private bool detectedInput = false;
+    private bool isPlayerFalling = false;
     public PlayerController playerController;
     public Transform orientation;
     public Camera cam;
@@ -54,12 +55,28 @@ public class WallRunController : MonoBehaviour
     void WallRun() // this manages the wall running
     {
         CheckWall(); // calles the check wall to see what side the wall is on
-
         if (CanWallRun()) // check if the player can wall run by runnung the check
         {
-            if ((wallLeft && Input.GetKey(KeyCode.A)) || (wallRight && Input.GetKey(KeyCode.D))) // checks if the player has a wall to their side
+            if (wallLeft || wallRight) // checks if the player has a wall to their side
             {
-                StartWallRun(); // if the player has a wall to the side they will begin to wall run
+                if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && !detectedInput && !isPlayerFalling)
+                {
+                    detectedInput = true;
+                    StartWallRun(); // starts the wall run
+                }
+                else if (detectedInput && !isPlayerFalling) // if the player has no input, stop the wall run
+                {
+                    StartWallRun();
+                }
+                else if (isPlayerFalling)
+                {
+                    return;
+                }
+                else
+                {
+                    StopWallRun(); // stops the wall run
+                }
+                //StartWallRun(); // if the player has a wall to the side they will begin to wall run
             }
             else // if not then they will not or stop wall running
             {
@@ -74,14 +91,15 @@ public class WallRunController : MonoBehaviour
 
     bool CanWallRun() // runs a ground check so low valuse means the player can wall run
     {
-        if (rb.velocity.magnitude > minimumSpeed && Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight * playerController.PlayerHeight / 2) == false)
+        // got rid of this rb.velocity.magnitude > minimumSpeed && because it was causing the player to not wall run when they were falling fast enough.
+        if (Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight * playerController.PlayerHeight / 2) == false)
         {
             return true;
         }
         else
         {
             return false;
-        } 
+        }
     }
 
     void CheckWall() // checks what side the wall is on
@@ -131,17 +149,23 @@ public class WallRunController : MonoBehaviour
         //time += Time.deltaTime; // base time duration of wall running.
         //rb.AddForce(Vector3.down * (wallRunGravity * time) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
 
+        time += Time.deltaTime; // base time duration of wall running. You need this for this to work!!!!
 
         float time2 = time - timeUntilGravityIsApplied + 1; // time for gravity removing access time.
 
         if (time <= timeUntilGravityIsApplied + 1)
         {
             if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallRunCounterGravity, rb.velocity.z);
+
             else if (rb.velocity.y > 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z);
+
             rb.AddForce(Vector3.down * beforeWallRunGravity * playerController.PlayerHeight / 2, ForceMode.Acceleration);
         }
-        else rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
-
+        else
+        {
+            rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
+            isPlayerFalling = true;
+        }
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time.
 
         if (wallLeft) // checks what side the wall is.
@@ -159,6 +183,10 @@ public class WallRunController : MonoBehaviour
 
         isWallRunning = false;
         isJumping = false;
+        detectedInput = false;
+        if (CanWallRun()) isPlayerFalling = true;
+        else isPlayerFalling = false;
+
 
         // rb.useGravity = true; // turns back on the normal gravity
 

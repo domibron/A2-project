@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour
     private int TrueCheckpointCount = 0;
     private bool isThereMasterScene = false;
     private bool isMuted;
+    private float masterVolume;
     private AudioSource musicSource;
     private AudioSource currentMusic;
     private int x = 0;
@@ -52,11 +53,13 @@ public class MusicManager : MonoBehaviour
         if (Save_Manager.instance.hasLoaded)
         {
             isMuted = Save_Manager.instance.saveData.isMusicMuted;
+            masterVolume = Save_Manager.instance.saveData.masterVolume;
             canIOperate = true;
         }
         else
         {
             isMuted = false;
+            masterVolume = 1f;
             Save_Manager.instance.saveData.isMusicMuted = false;
             Save_Manager.instance.Save();
             canIOperate = false;
@@ -69,7 +72,7 @@ public class MusicManager : MonoBehaviour
         music.Clear();
 
         Transform[] allChildren = GetComponentsInChildren<Transform>();
-        
+
         foreach (Transform child in allChildren)
         {
             music.Add(child.gameObject);
@@ -99,6 +102,8 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        masterVolume = Save_Manager.instance.saveData.masterVolume;
+
         if (!isMuted) isMutedRunOnce = false;
 
         if (isMuted)
@@ -115,11 +120,13 @@ public class MusicManager : MonoBehaviour
         else if ((!currentMusic.isPlaying) && (!isToStop))
         {
             currentMusic.Play();
+            currentMusic.volume = masterVolume;
             isToStop = true;
         }
         else if (!currentMusic.isPlaying)
         {
             x++;
+            currentMusic.volume = masterVolume;
             isToStop = false;
         }
         else if (Input.GetKeyDown(KeyCode.I))

@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 
 public class Save_Manager : MonoBehaviour
 {
-    
     public static Save_Manager instance; // this just allows any script to access this (if it's running in the scene)
     public SaveData saveData; // the data to save to file
 
@@ -34,7 +33,7 @@ public class Save_Manager : MonoBehaviour
     {
         string dataPath = Application.persistentDataPath;
 
-        if(System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".datafile"))
+        if (System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".datafile"))
         {
             var serializer = new XmlSerializer(typeof(SaveData));
             var stream = new FileStream(dataPath + "/" + saveData.saveName + ".datafile", FileMode.Open);
@@ -46,10 +45,8 @@ public class Save_Manager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".datafile | Generating new blank slate. This is not recommened!  This could be because of a curruption please look into this immidietly or this has just been installed onto the device." );
+            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".datafile | Generating new blank slate. This is not recommened!  This could be because of a curruption please look into this immidietly or this has just been installed onto the device.");
             hasLoaded = false;
-
-            //saveData.masterVolumeSave = 1f; >examples<
 
             saveData.fullscreenMode = 4;
 
@@ -67,13 +64,7 @@ public class Save_Manager : MonoBehaviour
 
             saveData.isMusicMuted = false;
 
-            //saveData.ScreenResolution = 3;
-
-            //saveData.HighScore = 0;
-
-            //saveData.FOV = 100;
-
-            //saveData.MainMouseSensitivity = 1f;
+            saveData.masterVolume = 1f;
 
             Save();
             Load();
@@ -103,8 +94,6 @@ public class SaveData
 {
     public string saveName = "GAMEDATA";
 
-    //  public float masterVolumeSave; << example
-
     public int fullscreenMode;
 
     public bool isTimerVisible;
@@ -121,11 +110,5 @@ public class SaveData
 
     public bool isMusicMuted;
 
-    // posible values we can use
-
-    //public int ScreenResolution;
-
-    //public float FOV;
-
-    //public float MouseSensitivity;
+    public float masterVolume;
 }

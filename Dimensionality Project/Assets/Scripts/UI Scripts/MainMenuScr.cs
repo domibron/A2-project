@@ -17,12 +17,14 @@ public class MainMenuScr : MonoBehaviour
     public TMP_Text LevelVBestTimeText;
     public Toggle MuteMusic;
     FullScreenMode settingVid;
-
+    public Slider MusicVolume;
+    public TMP_Text MusicVolumeText;
+    public float masterVolumeValue;
     private string LevelVbestTime;
     bool shutdown = false;
 
 
-    
+
     //public Scene[] AllOpenScenes;
     public Scene MasterScene;
     GameManager GM;
@@ -67,6 +69,9 @@ public class MainMenuScr : MonoBehaviour
 
             MuteMusic.isOn = Save_Manager.instance.saveData.isMusicMuted;
 
+            masterVolumeValue = Save_Manager.instance.saveData.masterVolume;
+            MusicVolume.value = Save_Manager.instance.saveData.masterVolume * 100f;
+
             shutdown = false;
         }
         else
@@ -76,6 +81,9 @@ public class MainMenuScr : MonoBehaviour
             Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
 
             Save_Manager.instance.saveData.isMusicMuted = false;
+
+            Save_Manager.instance.saveData.masterVolume = 1f;
+            MusicVolume.value = 100f;
 
             shutdown = true; //  why is this nessary??
         }
@@ -91,11 +99,14 @@ public class MainMenuScr : MonoBehaviour
     {
         Screen.fullScreenMode = settingVid;
 
+        masterVolumeValue = MusicVolume.value / 100f;
+        MusicVolumeText.text = "Volume: " + MusicVolume.value;
+
         //other funtions that need to run constantly
         FullScreen();
-        Resolution();
+        //Resolution();
 
-        if (!shutdown) // why is this here?
+        if (!shutdown) // this is to pervent the game from loading the best time if there is no data to load.
         {
             LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
             LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
@@ -162,8 +173,6 @@ public class MainMenuScr : MonoBehaviour
     {
         Save_Manager.instance.DeleteSaveData();
 
-        //Save_Manager.instance.saveData.masterVolumeSave = 1f;
-
         Save_Manager.instance.saveData.fullscreenMode = 4;
 
         Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
@@ -178,6 +187,12 @@ public class MainMenuScr : MonoBehaviour
 
         Save_Manager.instance.saveData.isMusicMuted = false;
 
+        Save_Manager.instance.saveData.masterVolume = 1f;
+
+        MusicVolume.value = 100f;
+
+        MuteMusic.isOn = false;
+
         Save_Manager.instance.Save();
 
         LoadSettings();
@@ -188,11 +203,12 @@ public class MainMenuScr : MonoBehaviour
     public void SaveSettings()
     {
         //save the values that are set
-        //Save_Manager.instance.saveData.masterVolumeSave = masterVolume;
 
         Save_Manager.instance.saveData.fullscreenMode = FullScreenDropdown.value;
 
         Save_Manager.instance.saveData.isMusicMuted = MuteMusic.isOn;
+
+        Save_Manager.instance.saveData.masterVolume = masterVolumeValue;
 
         //Save_Manager.instance.saveData.ScreenResolution = VideoResolution.value;
 
@@ -207,8 +223,9 @@ public class MainMenuScr : MonoBehaviour
         Save_Manager.instance.Load();
 
         //save values
-        //masterVolume = Save_Manager.instance.saveData.masterVolumeSave;
-        //MasterVolume.value = Save_Manager.instance.saveData.masterVolumeSave;
+
+        masterVolumeValue = Save_Manager.instance.saveData.masterVolume;
+        MusicVolume.value = Save_Manager.instance.saveData.masterVolume * 100f;
 
         FullScreenDropdown.value = Save_Manager.instance.saveData.fullscreenMode;
 
@@ -219,7 +236,7 @@ public class MainMenuScr : MonoBehaviour
 
     // functions for the UI buttons
 
-
+    // level loading functions and other bits
     public void QuitGame()
     {
         Application.Quit();
@@ -229,7 +246,8 @@ public class MainMenuScr : MonoBehaviour
     {
         GM.LoadLevelV();
 
-        //SceneManager.LoadScene(1, LoadSceneMode.Single);
+        //SceneManager.LoadScene(1, LoadSceneMode.Single); 
+        // removed as there is a scene manager, running this will make a child scene and fuck things over also will cause crashing and lots of bugs.
     }
 
     public void LoadTutorialMap()

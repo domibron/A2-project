@@ -6,6 +6,7 @@ public class getCurrentMusicState : MonoBehaviour
 {
     private bool isMusicMutedhold;
     private bool canIOperate = false; // this is to allow the script to run only if save manager has loaded
+    private float musicVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -13,11 +14,13 @@ public class getCurrentMusicState : MonoBehaviour
         if (Save_Manager.instance.hasLoaded)
         {
             isMusicMutedhold = Save_Manager.instance.saveData.isMusicMuted;
+            musicVolume = Save_Manager.instance.saveData.masterVolume;
             canIOperate = true;
         }
         else
         {
             isMusicMutedhold = false;
+            musicVolume = 1f;
             canIOperate = false;
         }
     }
@@ -29,10 +32,12 @@ public class getCurrentMusicState : MonoBehaviour
         {
             isMusicMutedhold = Save_Manager.instance.saveData.isMusicMuted;
 
+            musicVolume = Save_Manager.instance.saveData.masterVolume;
+
             AudioSource Music = GetComponent<AudioSource>();
 
-            if(isMusicMutedhold) Music.volume = 0;
-            else Music.volume = 1; // change 1 to current volume
+            if (isMusicMutedhold) Music.volume = 0;
+            else Music.volume = musicVolume;
 
         }
     }
