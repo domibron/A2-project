@@ -26,6 +26,9 @@ public class bobMainMenuCamera : MonoBehaviour
         baseRotationY = transform.localRotation.y;
         baseVector3Rotation = transform.localEulerAngles;
 
+        Time.timeScale = 1; // need this as when you leave the level to main menu its just stops time.
+        // btw the game time should not be paused unless I missed somthing.
+
         if (Save_Manager.instance.hasLoaded)
         {
             isTheMusicMuted = Save_Manager.instance.saveData.isMusicMuted;
@@ -49,7 +52,7 @@ public class bobMainMenuCamera : MonoBehaviour
         }
         else
         { // this bobs the camera if the music is playing.
-            // I added this because I really wanted too and alose
+            // I added this because I really wanted too and also
             // it adds some personality to the game.
             t += Time.deltaTime;
 

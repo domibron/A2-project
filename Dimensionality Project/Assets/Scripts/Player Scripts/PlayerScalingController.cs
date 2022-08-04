@@ -18,44 +18,6 @@ public class PlayerScalingController : MonoBehaviour
     public int currentScaleIndex = 0;
     private bool scaledThisFrame = false;
 
-    private void FixedUpdate()
-    {
-        switch (currentScaleIndex)
-        {
-            case 0:
-                for (int i = 0; i < optionsForScaling.Length; i++)
-                {
-                    optionsForScaling[i].SetActive(false); 
-                }
-                optionsForScaling[0].SetActive(true);
-                break;
-
-            case -1:
-                for (int i = 0; i < optionsForScaling.Length; i++)
-                {
-                    optionsForScaling[i].SetActive(false);
-                }
-                optionsForScaling[1].SetActive(true);
-                break;
-
-            case -2:
-                for (int i = 0; i < optionsForScaling.Length; i++)
-                {
-                    optionsForScaling[i].SetActive(false);
-                }
-                optionsForScaling[2].SetActive(true);
-                break;
-
-            case -3:
-                for (int i = 0; i < optionsForScaling.Length; i++)
-                {
-                    optionsForScaling[i].SetActive(false);
-                }
-                optionsForScaling[3].SetActive(true);
-                break;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {

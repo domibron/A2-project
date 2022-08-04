@@ -18,6 +18,7 @@ public class ScaleUpTriggerController : MonoBehaviour
         {
             scalingController.IsRoomToScaleUp = false;
         }
+        return;
     }
 
     private void OnTriggerExit(Collider other)
