@@ -29,7 +29,7 @@ public class Tutorial : MonoBehaviour
         TutorialString.Add("Good!"); // 3 - Unique meanning you can reuse
         TutorialString.Add("You can move around the map by using the WASD keys."); // 4
         TutorialString.Add("You can jump by pressing the space bar."); // 5
-        TutorialString.Add("You can enter the next room,"); // 6
+        TutorialString.Add("You can enter the next room."); // 6
 
         StartCoroutine(AnimateText());
     }
@@ -66,6 +66,7 @@ public class Tutorial : MonoBehaviour
         placeHolderText = TutorialString[1];
         yield return new WaitForSeconds(2.7f);
 
+        // mouse
         placeHolderText = TutorialString[2];
         currentStage = 1; // activates mouse detection
 
@@ -80,11 +81,14 @@ public class Tutorial : MonoBehaviour
         }
         currentStage = 0; // deactivates movement detection
         detectedInput = false; // resets detected movement boolean
+
         placeHolderText = TutorialString[3];
         yield return new WaitForSeconds(2f);
 
+        // w a s d
         placeHolderText = TutorialString[4];
         currentStage = 2; // activates W, A, S, D detection
+
         while (!detectedInput)
         {
             if (verticalMovement != 0 || horizontalMovement != 0)
@@ -96,8 +100,29 @@ public class Tutorial : MonoBehaviour
         }
         currentStage = 0; // deactivates movement detection
         detectedInput = false; // resets detected movement boolean
+
         placeHolderText = TutorialString[3];
         yield return new WaitForSeconds(2f);
+
+        // jumping
         placeHolderText = TutorialString[5];
+        currentStage = 0; // there is no jumping detection so its disabled.
+
+        while (!detectedInput)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                detectedInput = true;
+                yield return new WaitForSeconds(0.2f);
+            }
+            else yield return null;
+        }
+        currentStage = 0; // deactivates movement detection
+        detectedInput = false; // resets detected movement boolean
+
+        placeHolderText = TutorialString[3];
+        yield return new WaitForSeconds(2f);
+
+        placeHolderText = TutorialString[6];
     }
 }
