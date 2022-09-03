@@ -8,9 +8,11 @@ public class Tutorial : MonoBehaviour
 {
     private TMP_Text UItext;
     private string placeHolderText = "Sample Text";
-    private List<string> TutorialString = new List<string>();
+    private List<string> TutorialStrings = new List<string>();
     private bool detectedInput = false;
     private int currentStage = 0;
+
+    public int triggerCount = 0;
 
     // movemnt
     private float mouseX;
@@ -23,13 +25,7 @@ public class Tutorial : MonoBehaviour
     {
         UItext = GetComponentInChildren<TMP_Text>();
         // loads all the tutial lines of strings into the list
-        TutorialString.Add("Welcome to the tutorial!"); // 0 lists always start at 0
-        TutorialString.Add("This will show you how to play the game."); // 1
-        TutorialString.Add("You can look around by useing the mouse."); // 2
-        TutorialString.Add("Good!"); // 3 - Unique meanning you can reuse
-        TutorialString.Add("You can move around the map by using the WASD keys."); // 4
-        TutorialString.Add("You can jump by pressing the space bar."); // 5
-        TutorialString.Add("You can enter the next room."); // 6
+        SetListOfText();
 
         StartCoroutine(AnimateText());
     }
@@ -60,14 +56,14 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator AnimateText()
     {
-        placeHolderText = TutorialString[0];
+        placeHolderText = TutorialStrings[0];
         yield return new WaitForSeconds(2.2f);
 
-        placeHolderText = TutorialString[1];
+        placeHolderText = TutorialStrings[1];
         yield return new WaitForSeconds(2.7f);
 
         // mouse
-        placeHolderText = TutorialString[2];
+        placeHolderText = TutorialStrings[2];
         currentStage = 1; // activates mouse detection
 
         while (!detectedInput)
@@ -82,11 +78,11 @@ public class Tutorial : MonoBehaviour
         currentStage = 0; // deactivates movement detection
         detectedInput = false; // resets detected movement boolean
 
-        placeHolderText = TutorialString[3];
+        placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(2f);
 
         // w a s d
-        placeHolderText = TutorialString[4];
+        placeHolderText = TutorialStrings[4];
         currentStage = 2; // activates W, A, S, D detection
 
         while (!detectedInput)
@@ -101,11 +97,11 @@ public class Tutorial : MonoBehaviour
         currentStage = 0; // deactivates movement detection
         detectedInput = false; // resets detected movement boolean
 
-        placeHolderText = TutorialString[3];
+        placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(2f);
 
         // jumping
-        placeHolderText = TutorialString[5];
+        placeHolderText = TutorialStrings[5];
         currentStage = 0; // there is no jumping detection so its disabled.
 
         while (!detectedInput)
@@ -120,9 +116,20 @@ public class Tutorial : MonoBehaviour
         currentStage = 0; // deactivates movement detection
         detectedInput = false; // resets detected movement boolean
 
-        placeHolderText = TutorialString[3];
+        placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(2f);
 
-        placeHolderText = TutorialString[6];
+        placeHolderText = TutorialStrings[6];
+    }
+
+    private void SetListOfText()
+    {
+        TutorialStrings.Add("Welcome to the tutorial!"); // 0 lists always start at 0
+        TutorialStrings.Add("This will show you how to play the game."); // 1
+        TutorialStrings.Add("You can look around by using the mouse."); // 2
+        TutorialStrings.Add("Good!"); // 3 - Unique meanning you can reuse
+        TutorialStrings.Add("You can move around the map by using the WASD keys."); // 4
+        TutorialStrings.Add("You can jump by pressing the space bar."); // 5
+        TutorialStrings.Add("You can enter the next room."); // 6
     }
 }
