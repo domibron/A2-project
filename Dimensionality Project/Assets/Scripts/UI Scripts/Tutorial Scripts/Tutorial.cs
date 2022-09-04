@@ -79,7 +79,7 @@ public class Tutorial : MonoBehaviour
         detectedInput = false; // resets detected movement boolean
 
         placeHolderText = TutorialStrings[3];
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         // w a s d
         placeHolderText = TutorialStrings[4];
@@ -98,7 +98,7 @@ public class Tutorial : MonoBehaviour
         detectedInput = false; // resets detected movement boolean
 
         placeHolderText = TutorialStrings[3];
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         // jumping
         placeHolderText = TutorialStrings[5];
@@ -117,9 +117,29 @@ public class Tutorial : MonoBehaviour
         detectedInput = false; // resets detected movement boolean
 
         placeHolderText = TutorialStrings[3];
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
-        placeHolderText = TutorialStrings[6];
+        while (triggerCount <= 0)
+        {
+            placeHolderText = TutorialStrings[6];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        placeHolderText = TutorialStrings[3];
+        yield return new WaitForSeconds(1f);
+
+
+        while (triggerCount <= 1)
+        {
+            placeHolderText = TutorialStrings[7];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        placeHolderText = TutorialStrings[3];
+        yield return new WaitForSeconds(1f);
+
+        // insert more
+
     }
 
     private void SetListOfText()
@@ -127,9 +147,10 @@ public class Tutorial : MonoBehaviour
         TutorialStrings.Add("Welcome to the tutorial!"); // 0 lists always start at 0
         TutorialStrings.Add("This will show you how to play the game."); // 1
         TutorialStrings.Add("You can look around by using the mouse."); // 2
-        TutorialStrings.Add("Good!"); // 3 - Unique meanning you can reuse
+        TutorialStrings.Add("Good!"); // Unique meanning you can reuse - 3
         TutorialStrings.Add("You can move around the map by using the WASD keys."); // 4
         TutorialStrings.Add("You can jump by pressing the space bar."); // 5
-        TutorialStrings.Add("You can enter the next room."); // 6
+        TutorialStrings.Add("You can enter the next room."); // Unique meanning you can reuse - 6
+        TutorialStrings.Add("Jump to the other side"); // 7
     }
 }
