@@ -59,19 +59,19 @@ public class WallRunController : MonoBehaviour
         {
             if (wallLeft || wallRight) // checks if the player has a wall to their side
             {
-                if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && !detectedInput && !isPlayerFalling)
+                if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) // fuck that && !detectedInput && !isPlayerFalling
                 {
                     detectedInput = true;
                     StartWallRun(); // starts the wall run
                 }
-                else if (detectedInput && !isPlayerFalling) // if the player has no input, stop the wall run
-                {
-                    StartWallRun();
-                }
-                else if (isPlayerFalling)
-                {
-                    return;
-                }
+                //else if (detectedInput && !isPlayerFalling) // if the player has no input, stop the wall run
+                //{
+                //    StartWallRun();
+                //}
+                //else if (!detectedInput && isPlayerFalling)
+                //{
+                //    return;
+                //}
                 else
                 {
                     StopWallRun(); // stops the wall run

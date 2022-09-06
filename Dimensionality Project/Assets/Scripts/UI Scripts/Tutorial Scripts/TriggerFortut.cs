@@ -15,6 +15,7 @@ public class TriggerFortut : MonoBehaviour
             tutorialScript.triggerCount++;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             print(tutorialScript.triggerCount);
+            Destroy(this);
         }
     }
 

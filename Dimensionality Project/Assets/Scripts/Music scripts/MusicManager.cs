@@ -102,6 +102,7 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         masterVolume = Save_Manager.instance.saveData.masterVolume;
 
         if (!isMuted) isMutedRunOnce = false;

@@ -81,7 +81,7 @@ public class Tutorial : MonoBehaviour
         placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(1f);
 
-        // w a s d
+        // W, A, S and D movement
         placeHolderText = TutorialStrings[4];
         currentStage = 2; // activates W, A, S, D detection
 
@@ -119,7 +119,7 @@ public class Tutorial : MonoBehaviour
         placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(1f);
 
-        while (triggerCount <= 0)
+        while (triggerCount <= 0) // enter room 1
         {
             placeHolderText = TutorialStrings[6];
             yield return new WaitForSeconds(0.2f);
@@ -128,7 +128,7 @@ public class Tutorial : MonoBehaviour
         placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(1f);
 
-
+        // jumping accross gap
         while (triggerCount <= 1)
         {
             placeHolderText = TutorialStrings[7];
@@ -138,7 +138,53 @@ public class Tutorial : MonoBehaviour
         placeHolderText = TutorialStrings[3];
         yield return new WaitForSeconds(1f);
 
-        // insert more
+        while (triggerCount <= 2) // enter room 2
+        {
+            placeHolderText = TutorialStrings[6];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        // attempt to wall run
+        placeHolderText = TutorialStrings[8];
+        yield return new WaitForSeconds(4f);
+
+        while (triggerCount <= 3)
+        {
+            placeHolderText = TutorialStrings[9];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        placeHolderText = TutorialStrings[3];
+        yield return new WaitForSeconds(1f);
+
+        while (triggerCount <= 4) // enter room 3
+        {
+            placeHolderText = TutorialStrings[6];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        placeHolderText = TutorialStrings[3];
+        yield return new WaitForSeconds(1f);
+
+        placeHolderText = TutorialStrings[10];
+        yield return new WaitForSeconds(5f);
+
+        placeHolderText = TutorialStrings[11];
+        yield return new WaitForSeconds(7f);
+
+        placeHolderText = TutorialStrings[12];
+        yield return new WaitForSeconds(3f);
+
+        while (triggerCount <= 6) // scale down and pass under wall
+        {
+            placeHolderText = TutorialStrings[13];
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        placeHolderText = TutorialStrings[14];
+        yield return new WaitForSeconds(4f);
+
+        placeHolderText = TutorialStrings[15];
 
     }
 
@@ -151,6 +197,14 @@ public class Tutorial : MonoBehaviour
         TutorialStrings.Add("You can move around the map by using the WASD keys."); // 4
         TutorialStrings.Add("You can jump by pressing the space bar."); // 5
         TutorialStrings.Add("You can enter the next room."); // Unique meanning you can reuse - 6
-        TutorialStrings.Add("Jump to the other side"); // 7
+        TutorialStrings.Add("Jump to the other side."); // 7
+        TutorialStrings.Add("You can wall run by looking straight and touch the wall with your sides."); // 8
+        TutorialStrings.Add("Reach the end of this room."); // 9
+        TutorialStrings.Add("You can scale down with CTRL and scale up with Shift."); // 10
+        TutorialStrings.Add("You can't press a button to sprint but the if you hold the W key for a short period of time you will be running."); // 11
+        TutorialStrings.Add("You can dash with Left Mouse Button"); // 12
+        TutorialStrings.Add("Go to the end of the stage."); // 13
+        TutorialStrings.Add("You did well player. Now it's time to leave."); // 14
+        TutorialStrings.Add("Press the ESC key and click Quit to Main Menu "); // 15
     }
 }
