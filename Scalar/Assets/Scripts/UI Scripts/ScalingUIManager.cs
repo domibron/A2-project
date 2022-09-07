@@ -11,7 +11,7 @@ public class ScalingUIManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {// gather.. gather
+    {// gets the required components
         PSC = transform.root.GetComponentInChildren<PlayerScalingController>();
         scaleText = transform.Find("Scale Text").GetComponent<TMP_Text>();
     }
@@ -21,7 +21,8 @@ public class ScalingUIManager : MonoBehaviour
     {
         int value = PSC.currentScaleIndex;
 
-        switch(value){ // obv, it checks current scale value and sets the text to what the size it
+        switch (value)
+        { // obv, it checks current scale value and sets the text to what the size it
             case 0:
                 scaleText.text = "1";
                 break;

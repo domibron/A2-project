@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
     float totalSceneProgress;
     public IEnumerator GetSceneLoadProgress()
     {
-        for(int i = 0; i < scenesLoading.Count; i++)
+        for (int i = 0; i < scenesLoading.Count; i++)
         {
             while (!scenesLoading[i].isDone)
             {
