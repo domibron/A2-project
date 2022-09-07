@@ -19,6 +19,15 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
+        //// fail safe incase more than 2 scenes
+        //if ((SceneManager.sceneCount >= 3) // inset back up)
+        //{
+        //    for (int i = 1; i >= SceneManager.sceneCount; i++)
+        //    {
+        //        SceneManager.UnloadSceneAsync(i);
+        //    }
+        //    print("Fail Safe active | fail safe: more than 2 scenes exist");
+        //}
     }
 
     private void Update()

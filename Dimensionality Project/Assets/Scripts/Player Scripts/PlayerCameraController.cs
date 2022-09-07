@@ -17,7 +17,7 @@ public class PlayerCameraController : MonoBehaviour
     public Transform cameraPosition;
 
     [Header("Mouse Sensitivity")]
-    public float sensitivityMouse = 1f; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS
+    public float sensitivityMouse = 1f; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS - SOON BROTHER, SOON!
     public float multiplier = 0.01f;
 
     [Header("Head Bob")]
@@ -50,7 +50,7 @@ public class PlayerCameraController : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); // this clamps the up down so you cannot flip the camera
 
-        
+
         cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRunController.tilt); // this rotates the camera seperatly (up and down)
         cam.transform.position = cameraPosition.position;
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0); // this rotates the orientation (left and right)
@@ -73,7 +73,7 @@ public class PlayerCameraController : MonoBehaviour
 
         if ((cameraPosition.position - targetCameraPosition).magnitude <= 0.001) cameraPosition.position = targetCameraPosition;
     }
-    
+
     private Vector3 CalculateHeadBobOffset(float t)
     {
         float horOffset = 0f;

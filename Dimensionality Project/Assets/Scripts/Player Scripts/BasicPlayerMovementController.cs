@@ -6,6 +6,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     public WallRunController wallRunController;
     public TeleportController teleportController;
     public PlayerScalingController playerScalingController;
+    public canPlayerMantle canPlayerMantle;
     public Transform orientation;
     public Transform headPosition;
     public Transform cameraPosition;
@@ -84,6 +85,11 @@ public class BasicPlayerMovementController : MonoBehaviour
             Jump();
         }
 
+        if (!IsGrounded && canPlayerMantle.canMantle)
+        {
+            Mantle();
+        }
+
         //sets the direction following the slope
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
@@ -122,6 +128,13 @@ public class BasicPlayerMovementController : MonoBehaviour
             //calls the Move player function
             MovePlayer();
         }
+    }
+
+    void Mantle()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y <= 0 ? 4f : rb.velocity.y , rb.velocity.z);
+        rb.AddForce(orientation.forward * 6f, ForceMode.Impulse);
+        rb.AddForce(orientation.up * 2f, ForceMode.Impulse);
     }
 
     //when called it will grab movement input
@@ -249,7 +262,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             if (!wallRunController.isWallRunning && !teleportController.IsPlayerNoClipping)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
             else if (!teleportController.IsPlayerNoClipping)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
         }
 
         rb.transform.position += conveyorForce;
