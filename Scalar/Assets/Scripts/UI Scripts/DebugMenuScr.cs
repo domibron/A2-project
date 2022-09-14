@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Windows;
 using UnityEngine.SceneManagement;
 
 public class DebugMenuScr : MonoBehaviour
@@ -38,7 +37,7 @@ public class DebugMenuScr : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         if (Input.GetButtonDown("Debug Menu")) debugShowen = !debugShowen;
 
         if (pauseMenuScript.isPaused) return;

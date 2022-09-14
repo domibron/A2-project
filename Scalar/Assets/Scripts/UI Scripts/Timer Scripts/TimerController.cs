@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Windows;
 using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour
