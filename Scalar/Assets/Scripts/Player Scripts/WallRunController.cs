@@ -59,11 +59,12 @@ public class WallRunController : MonoBehaviour
         {
             if (wallLeft || wallRight) // checks if the player has a wall to their side
             {
-                if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) // fuck that && !detectedInput && !isPlayerFalling
-                {
-                    detectedInput = true;
-                    StartWallRun(); // starts the wall run
-                }
+                StartWallRun();
+                //if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) // f*** that && !detectedInput && !isPlayerFalling
+                //{
+                //    detectedInput = true;
+                //    StartWallRun(); // starts the wall run
+                //}
                 //else if (detectedInput && !isPlayerFalling) // if the player has no input, stop the wall run
                 //{
                 //    StartWallRun();
@@ -72,10 +73,10 @@ public class WallRunController : MonoBehaviour
                 //{
                 //    return;
                 //}
-                else
-                {
-                    StopWallRun(); // stops the wall run
-                }
+                //else
+                //{
+                //    StopWallRun(); // stops the wall run
+                //}
                 //StartWallRun(); // if the player has a wall to the side they will begin to wall run
             }
             else // if not then they will not or stop wall running
@@ -132,17 +133,17 @@ public class WallRunController : MonoBehaviour
 
         if (isJumping) return;
 
-        float ySpeed = rb.velocity.y; // this saves the y velocity.
+        //float ySpeed = rb.velocity.y; // this saves the y velocity.
 
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); // the y velocity.
+        //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); // the y velocity.
 
-        // clamps to max speed.
-        if (rb.velocity.magnitude > maxSpeed * playerController.PlayerHeight / 2)
-        {
-            rb.velocity = rb.velocity.normalized * wallRunSpeed * playerController.PlayerHeight / 2;
-        }
+        //// clamps to max speed.
+        //if (rb.velocity.magnitude > maxSpeed * playerController.PlayerHeight / 2)
+        //{
+        //    rb.velocity = rb.velocity.normalized * wallRunSpeed * playerController.PlayerHeight / 2;
+        //}
 
-        rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z); // re-adds the y velocity.
+        //rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z); // re-adds the y velocity.
 
         //rb.AddForce(orientation.forward * wallRunSpeed);
         //rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity.
@@ -153,19 +154,23 @@ public class WallRunController : MonoBehaviour
 
         float time2 = time - timeUntilGravityIsApplied + 1; // time for gravity removing access time.
 
-        if (time <= timeUntilGravityIsApplied + 1)
-        {
-            if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallRunCounterGravity, rb.velocity.z);
+        if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallRunCounterGravity, rb.velocity.z);
+        rb.AddForce(orientation.forward * 1f, ForceMode.Acceleration);
 
-            else if (rb.velocity.y > 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z);
 
-            rb.AddForce(Vector3.down * beforeWallRunGravity * playerController.PlayerHeight / 2, ForceMode.Acceleration);
-        }
-        else
-        {
-            rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
-            isPlayerFalling = true;
-        }
+        //if (time <= timeUntilGravityIsApplied + 1)
+        //{
+        //    if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallRunCounterGravity, rb.velocity.z);
+
+        //    else if (rb.velocity.y > 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z);
+
+        //    //rb.AddForce(Vector3.down * beforeWallRunGravity * playerController.PlayerHeight / 2, ForceMode.Acceleration);
+        //}
+        //else
+        //{
+        //    rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
+        //    isPlayerFalling = true;
+        //}
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time.
 
         if (wallLeft) // checks what side the wall is.

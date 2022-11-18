@@ -85,10 +85,10 @@ public class BasicPlayerMovementController : MonoBehaviour
             Jump();
         }
 
-        if (!IsGrounded && canPlayerMantle.canMantle)
-        {
-            Mantle();
-        }
+        //if (!IsGrounded && canPlayerMantle.canMantle)
+        //{
+        //    Mantle();
+        //}
 
         //sets the direction following the slope
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
